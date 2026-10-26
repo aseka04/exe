@@ -1,0 +1,12 @@
+{% extends "onlinecourse/base.html" %}
+{% block title %}{{ course.name }} | OnlineCourse{% endblock %}
+{% block content %}
+<nav aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="{% url 'index' %}">Courses</a></li><li class="breadcrumb-item active">{{ course.name }}</li></ol></nav>
+<div class="card mb-4"><div class="card-body p-4"><h1 class="h2">{{ course.name }}</h1><p class="text-secondary mb-0">{{ course.description }}</p></div></div>
+<h2 class="h4 mb-3">Course lessons</h2>
+<div class="list-group shadow-sm">
+{% for lesson in course.lessons.all %}
+  <div class="list-group-item p-4"><div class="d-flex flex-column flex-md-row justify-content-between gap-3"><div><span class="badge text-bg-primary mb-2">Lesson {{ forloop.counter }}</span><h3 class="h5">{{ lesson.title }}</h3><p class="mb-0">{{ lesson.content }}</p></div><div class="align-self-md-center"><a class="btn btn-outline-primary" href="{% url 'take_exam' lesson.id %}">Take mock exam</a></div></div></div>
+{% empty %}<div class="list-group-item">No lessons have been added to this course yet.</div>{% endfor %}
+</div>
+{% endblock %}
